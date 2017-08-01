@@ -4,13 +4,17 @@
 #include "button.h"
 #include "morse.h"
 
+volatile int mainEnabled = 0; //これが1になるとmainのループで1回処理される
+//mainでの処理が開始される前にmorse_updateが呼ばれ
+//morse_signalの値が変わる可能性があるので退避しておく
+volatile char signal;
+
 void main_systickHandler()
 {
 	morse_update();
-	char buf[] = " ";
-	buf[0] = morse_signal();
-	if(buf[0] == DAH || buf[0] == DIT){
-		lcd_str(buf);
+	signal = morse_signal();
+	if(signal != SPACE){
+		mainEnabled = 1;
 	}
 }
 
@@ -25,6 +29,8 @@ int main(void)
 	lcd_position(0, 0);
 
 	while(1){
+		while(!mainEnabled){} //main_systickHandlerでmainEnabledが1になるのを待つ
+		mainEnabled = 0;
 	}
 }
 
