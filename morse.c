@@ -64,9 +64,11 @@ const char * const MorseNumerals[] = {
 const char * const MorsePeriod = "е-е-е-";
 const char * const MorseComma = "--ее--";
 const char * const MorseQuestion = "ее--ее";
+const char * const MorseExclamation = "-е-е--";
 const char * const MorseColon = "---еее";
 const char * const MorseSemicolon = "-е-е-е";
 const char * const MorseHyphen = "-еее-";
+const char * const MorseSpace = "";
 const char * const MorseNone = 0;
 
 const char *morseFromChar(char c){
@@ -79,9 +81,11 @@ const char *morseFromChar(char c){
 		case '.': return MorsePeriod;
 		case ',': return MorseComma;
 		case '?': return MorseQuestion;
+		case '!': return MorseExclamation;
 		case ':': return MorseColon;
 		case ';': return MorseSemicolon;
 		case '-': return MorseHyphen;
+		case ' ': return MorseSpace;
 		default: return MorseNone;
 		}
 	}
